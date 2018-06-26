@@ -122,7 +122,16 @@
                 <div style="display: flex;" >
                     <fieldset  class="rating" id="rating"> </fieldset>
                 </div>
-                <p th:style="${'color:'+ comparar + ';'}" >   Nivel:   <span th:text="${restaurant.nivelRestaurant.name}">  </span>(Asociado)- <span th:text="${nivelCalculado.name}"></span>(Real)</p>
+                <p th:style="${'color:'+ comparar + ';'} " >Nivel:
+                    <br/>
+                    <span th:text="${restaurant.nivelRestaurant.name}"></span>
+                    -
+                    <span th:text="${restaurant.nivelRestaurant.rating}"></span>(Asociado)
+                    <br/>
+                    <span th:text="${nivelCalculado.name}"></span>
+                    -
+                    <span th:text="${nivelCalculado.rating}"></span>(Real)
+                </p>
 
 
             <form th:action="@{/restaurant/like}" method="POST" style="align: left">

@@ -310,6 +310,7 @@ public class RestaurantController {
                 comparar="yellow";
         }
         model.addAttribute("comparar",comparar);
+        
         return "showRestaurant";
     }
 
