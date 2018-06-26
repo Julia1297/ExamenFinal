@@ -83,6 +83,10 @@
                     th:selected="(${city.id} == ${restaurant.city.id})"></option>
         </select>
         <br />
+        <select class="form-control" style="width: 250px; color: orange;" th:field="*{nivelRestaurant}">
+            <option th:each="nivel : ${niveles}" th:value="${nivel.id}" th:text="${nivel.name}"></option>
+        </select>
+        <br/>
         <input type="file" name="file" id="foto"/>
         <br/>
         <input type="hidden" id="lat" th:field="*{latitude}" th:value="latitude"/>

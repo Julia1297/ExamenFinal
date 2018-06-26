@@ -47,6 +47,11 @@ public class Restaurant {
     private Double latitude;
     private Double longitude;
 
+
+    @ManyToOne
+    @JoinColumn(name = "nivel_restaurant_id")
+    private NivelRestaurant nivelRestaurant;
+
     public String getF() { return f; }
 
     public void setF(String f) { this.f = f; }
@@ -138,5 +143,13 @@ public class Restaurant {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public NivelRestaurant getNivelRestaurant() {
+        return nivelRestaurant;
+    }
+
+    public void setNivelRestaurant(NivelRestaurant nivelRestaurant) {
+        this.nivelRestaurant = nivelRestaurant;
     }
 }

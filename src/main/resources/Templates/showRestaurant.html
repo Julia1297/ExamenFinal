@@ -122,7 +122,10 @@
                 <div style="display: flex;" >
                     <fieldset  class="rating" id="rating"> </fieldset>
                 </div>
-                <form th:action="@{/restaurant/like}" method="POST" style="align: left">
+                <p th:style="${'color:'+ comparar + ';'}" >   Nivel:   <span th:text="${restaurant.nivelRestaurant.name}">  </span>(Asociado)- <span th:text="${nivelCalculado.name}"></span>(Real)</p>
+
+
+            <form th:action="@{/restaurant/like}" method="POST" style="align: left">
                     <input type="hidden" name="restaurant" th:value="${restaurant.id}"/>
                     <input type="hidden" name="user" th:value="${user.id}"/>
                     <button type="submit" class="btn btn-inverse btn-danger"><span class="glyphicon glyphicon-heart"></span></button>

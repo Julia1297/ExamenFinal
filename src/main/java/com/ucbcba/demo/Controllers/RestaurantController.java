@@ -20,6 +20,7 @@ import java.util.List;
 
 @Controller
 public class RestaurantController {
+    private NivelRestaurantService nivelRestaurantService;
     private RestaurantService restaurantService;
     private CityService cityService;
     private CategoryService categoryService;
@@ -47,6 +48,9 @@ public class RestaurantController {
     public void setLikeRestaurantService(LikeRestaurantService likeRestaurantService) { this.likeRestaurantService = likeRestaurantService; }
     @Autowired
     public void setLikeRestaurantService(CommentService commentService) { this.commentService = commentService; }
+    @Autowired
+    public void setNivelRestaurantService(NivelRestaurantService nivelRestaurantService) {   this.nivelRestaurantService = nivelRestaurantService;
+    }
 
 
     @RequestMapping("/")
@@ -221,6 +225,7 @@ public class RestaurantController {
         model.addAttribute("restaurant",new Restaurant());
         model.addAttribute( "categories", categoryService.listAllCategories());
         model.addAttribute("cities", cityService.listAllCities());
+        model.addAttribute("niveles",nivelRestaurantService.listAllNiveles());
         return "newRestaurant";
     }
 
@@ -248,6 +253,7 @@ public class RestaurantController {
         model.addAttribute("restaurant", restaurantService.getRestaurant(id));
         model.addAttribute("categories", categoryService.listAllCategories());
         model.addAttribute("cities", cityService.listAllCities());
+        model.addAttribute("niveles",nivelRestaurantService.listAllNiveles());
         return "editRestaurant";
     }
     @RequestMapping("/showRestaurant/{id}")
@@ -281,6 +287,29 @@ public class RestaurantController {
         model.addAttribute("fot", fot);
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("user", userService.findByUsername(this.username));
+        Integer nivelCalculado= 0;
+        if(restaurant.getScore()<=1)
+            nivelCalculado=1;
+        if(restaurant.getScore()>1 && restaurant.getScore()<=2)
+            nivelCalculado=2;
+        if(restaurant.getScore()>2 && restaurant.getScore()<=3)
+            nivelCalculado=3;
+        if(restaurant.getScore()>3 && restaurant.getScore() <=4)
+            nivelCalculado=4;
+        if(restaurant.getScore()>4 && restaurant.getScore() <=5)
+            nivelCalculado=5;
+        model.addAttribute("nivelCalculado",nivelRestaurantService.getNivelRestaurant(nivelCalculado));
+
+        String comparar="";
+        if(nivelCalculado<restaurant.getNivelRestaurant().getRating())
+            comparar="red";
+        else {
+            if(nivelCalculado>restaurant.getNivelRestaurant().getRating())
+                comparar="green";
+            else
+                comparar="yellow";
+        }
+        model.addAttribute("comparar",comparar);
         return "showRestaurant";
     }
 
@@ -368,6 +397,7 @@ public class RestaurantController {
         model.addAttribute("restaurants", restaurants);
         return "rankingCategorias";
     }
+
 
 
 }
